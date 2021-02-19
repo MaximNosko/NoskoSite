@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+{% block content %}
+  <h2>Регистрация</h2>
+    <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td><label for="id_username">Логин</label></td>
+                        <td><input id="id_username" name="username"
+                                   type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_password1">Пароль</label></td>
+                        <td><input id="id_password1" name="password1"
+                                   type="password" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_password2">Пароль</label></td>
+                        <td><input id="id_password2" name="password2"
+                                   type="password" class="form-control"></td>
+                    </tr>
+                </table>
+                {% if form.errors %}
+                    <p class=" label label-danger">
+                        Ошибка регистрации
+                    </p>
+                {% endif %}
+
+                <input type="submit" value="Зарегистрироваться"
+                       class="btn btn-primary pull-right" />
+            </form>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пост</title>
+    {% load auth_extras %}
+</head>
+<body style="width: 50%">
+<a href="/">На главную</a>
+    <p>Категория: <a href="../cat{{ post.category.id }}">{{ post.category }}</a></p>
+    <p>Ключевыые слова:
+    {% for k in post.keywords.all %}
+        <a href="../kw{{ k.id }}">{{ k.title }}</a>
+{% endfor %}</p>
+    Пост #{{ post.id }}
+    <h1>{{ post.title }}</h1>
+    <h3>
+        {{ post.content }}
+    </h3>
+    <div>
+        Комментарии:
+        <ul>
+        {% for c in post.comment_set.all %}
+            <li>{{ c.text }}
+            {% if request.user|has_group:"moderator" %}
+    <form method="post" action="../delcom/">
+    {% csrf_token %}
+        <input type="hidden" name="comment_id" value="{{ c.id }}" />
+        <input type="hidden" name="news_id" value="{{ post.id }}" />
+        <input type="submit" value="Удалить">
+    </form>
+{% endif %}</li>
+        {% endfor %}
+
+        </ul>
+    </div>
+
+
+Добавить комментарий:
+<form method="post">
+                {% csrf_token %}
+    <label for="text">Текст</label>
+    <input type="text" name="text" />
+    <input type="hidden" name="news" value="{{ post.id }}" />
+    <input type="submit" value="Отправить">
+</form>
+</body>
+</html>

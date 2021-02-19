@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории</title>
+</head>
+<body>
+<a href="/">На главную</a>
+<h1>Ключевые слова</h1>
+<ul>
+    {% for kw in kw_spisok %}
+        <li><a href="/kw{{ kw.id }}/">{{ kw.title }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

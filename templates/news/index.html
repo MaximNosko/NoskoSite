@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Сайт с постами</title>
 </head>
 <body>
-
+{% block content %}
+{% if user.is_authenticated %}
+    <p>Добро пожаловать, {{ user.username }}!</p>
+    <a href="logout">Выйти</a>
+{% else %}
+    <p>Вы не вошли в систему</p>
+    <p><a href="login">Войти</a></p>
+    <p><a href="reg">Зарегистрироваться</a></p>
+{% endif %}
+{% endblock %}
+<p><a href="cats">Поиск статей по категориям</a></p>
+<p><a href="kws">Поиск статей по ключевым словам</a></p>
+Новости:
+<ul>
+    {% for post in post_spisok %}
+        <li><a href="/{{ post.id }}/">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
 </body>
 </html>
